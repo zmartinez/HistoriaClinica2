@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "janihur/ubuntu-1404-desktop"
+  config.vm.provision :shell, path: "bootstrap.sh"
+  config.vm.provision :shell, path: "createDB.sh"
+  config.vm.network :forwarded_port, host: 5672, guest: 5672
+  config.vm.network :forwarded_port, host: 15672, guest: 15672
+  config.vm.network :forwarded_port, host: 2080, guest: 80
+  config.vm.network :forwarded_port, host: 3080, guest: 8080
+  config.vm.network :forwarded_port, host: 5555, guest: 5432
+end
